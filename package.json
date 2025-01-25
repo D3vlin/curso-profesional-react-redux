@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.20.2",
+    "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
