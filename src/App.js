@@ -4,11 +4,11 @@ import logo from './statics/logo.svg'
 import { Searcher } from './Components/Searcher';
 import { PokemonList } from './Components/PokemonList';
 import { getPokemons } from './api';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { setPokemonsActions } from './actions';
+import { connect } from 'react-redux';
 
-function App() {
-  const [pokemons, setPokemons] = useState([])
-
+function App({ pokemons, setPokemons }) {
   useEffect(() => {
     const fetchPokemons = async () => {
       setPokemons(await getPokemons())
@@ -28,4 +28,12 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  pokemons: state.pokemons
+})
+
+const mapDispatchToProps = (dispach) => ({
+  setPokemons: (payload) => dispach(setPokemonsActions(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
