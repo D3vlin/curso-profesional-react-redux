@@ -6,12 +6,15 @@ import { PokemonList } from './Components/PokemonList';
 import { getPokemons } from './api';
 import { useEffect } from 'react';
 import { setPokemonsActions } from './actions';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-function App({ pokemons, setPokemons }) {
+function App() {
+  const pokemons = useSelector(state => state.pokemons)
+  const dispatch = useDispatch()
+
   useEffect(() => {
     const fetchPokemons = async () => {
-      setPokemons(await getPokemons())
+      dispatch(setPokemonsActions(await getPokemons()))
     }
 
     fetchPokemons();
@@ -28,12 +31,4 @@ function App({ pokemons, setPokemons }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  pokemons: state.pokemons
-})
-
-const mapDispatchToProps = (dispach) => ({
-  setPokemons: (payload) => dispach(setPokemonsActions(payload))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
